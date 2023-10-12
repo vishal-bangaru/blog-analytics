@@ -57,11 +57,14 @@ app.get("/api/blog-search",(req,res)=>{
   
   const blogs=app.get("data")
    const query=req.query.search_query
+  if (!query) {
+     res.status(400).json({ error: 'Query parameter is required.' });
+  }else{
    const searchResults = blogs.filter((blog) =>
    blog.title.toLowerCase().includes(query.toLowerCase())
  );
  res.send({ results: searchResults });
- 
+  }
  
 })
 
